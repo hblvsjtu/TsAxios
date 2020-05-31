@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+</head>
+<body>
+    <script src="axios.umd.js"></script>
+    <script>
+    /* eslint-disable */
+    const requestIntercept2 = axios.request.use(req => {
+        console.log('request intercept 2: ', req);
+        return req;
+    });
+    const requestIntercept1 = axios.request.use(req => {
+        console.log('request intercept 1: ', req);
+        return req;
+    });
+    axios.request.eject(requestIntercept2);
+    const responseIntercept1 = axios.response.use(res => {
+        console.log('response intercept 1: ', res.responseData);
+        return res;
+    });
+    const responseIntercept2 = axios.response.use(res => {
+        console.log('response intercept 1: ', res.responseData);
+        return res;
+    });
+    axios.response.eject(responseIntercept2);
+
+    const config = {
+        method: 'get',
+        url: 'http://localhost:3001/app/get?a=1',
+        params: {
+            b: '2@$  @',
+            c: [3, 4, 5],
+            d: {
+                e: 6,
+                f: 7
+            },
+            g: new Date(),
+            h: undefined,
+            i: null
+        },
+        data: {
+            j: 1,
+            k: 2
+        },
+        timeout: 2000
+    };
+
+    axios(config)
+        .then(res => console.log('res = ', res))
+        .catch(err => console.log('err = ', err.message));
+
+    const postConfig = Object.assign({}, config, {
+        method: 'post',
+        url: 'http://localhost:3001/app/post?a=1'
+    });
+    axios(postConfig)
+        .then(res => console.log('res = ', res))
+        .catch(err => console.log('err = ', err.message));
+
+    delete postConfig.method;
+    delete postConfig.url;
+    axios.post('http://localhost:3001/app/post?a=1', postConfig)
+        .then(res => console.log('postRes = ', res))
+        .catch(err => console.log('postErr = ', err.message));
+    /* eslint-disable */
+    </script>
+</body>
+</html>
