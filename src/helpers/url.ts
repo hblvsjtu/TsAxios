@@ -1,4 +1,4 @@
-import { isDate, isObject } from './utils'
+import { isDate, isObject, isNil } from './typeof'
 
 function encode(val: string): string {
   return encodeURIComponent(val)
@@ -11,12 +11,12 @@ function encode(val: string): string {
     .replace(/%5D/gi, ']')
 }
 
-export function buildUrl(url: string, params?: any): string {
+export default function buildUrl(url: string, params?: any): string {
   if (!params) return url
   const parts: Array<Array<string>> = []
   for (let key in params) {
     let value = params[key]
-    if (value === null || value === void 0) continue
+    if (isNil(value)) continue
     if (Array.isArray(value)) {
       value.forEach(item => parts.push([key + '[]', item]))
     } else {

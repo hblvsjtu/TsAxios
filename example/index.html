@@ -31,7 +31,7 @@
 
     const config = {
         method: 'get',
-        url: 'http://localhost:3001/app/get?a=1',
+        url: 'http://localhost:3000/app/get?a=1',
         params: {
             b: '2@$  @',
             c: [3, 4, 5],
@@ -56,7 +56,7 @@
 
     const postConfig = Object.assign({}, config, {
         method: 'post',
-        url: 'http://localhost:3001/app/post?a=1'
+        url: 'http://localhost:3000/app/post?a=1'
     });
     axios(postConfig)
         .then(res => console.log('res = ', res))
@@ -64,7 +64,7 @@
 
     delete postConfig.method;
     delete postConfig.url;
-    axios.post('http://localhost:3001/app/post?a=1', postConfig)
+    axios.post('http://localhost:3000/app/post?a=1', postConfig)
         .then(res => console.log('postRes = ', res))
         .catch(err => console.log('postErr = ', err.message));
     /* eslint-disable */
