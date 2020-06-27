@@ -6,13 +6,17 @@
 import {parseHeaders} from '../helpers/header';
 import {parseRequest} from '../helpers/data';
 import getWrappedError from '../helpers/error';
-const FakeXMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+const _ = require('lodash');
 
 export default function request(config: AxiosRequestConfig): AxiosPromise {
     return new Promise((resolve, reject) => {
         const {url, method = 'get', data = null, headers = {}, responseType, timeout} = config;
-        const xhr =
-            process.env.NODE_ENV === 'test' ? new FakeXMLHttpRequest() : new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
+        // if (_.get(process, 'env.NODE_ENV') === 'test') {
+        //     // build 编译文件时需要注释
+        //     const FakeXMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+        //     xhr = new FakeXMLHttpRequest();
+        // }
         xhr.open(method, url, true);
         Object.keys(headers).forEach(name => xhr.setRequestHeader(name, headers[name]));
         if (responseType) {

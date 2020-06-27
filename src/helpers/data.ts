@@ -5,9 +5,13 @@
 
 import {isPlainObject} from './typeof';
 
-export function processRequest(data: any): any {
-    if (isPlainObject(data)) {
+export function processRequest(data: any, contentType?: string): any {
+    if (!contentType || contentType.match(/json/)) {
         return JSON.stringify(data);
+    } else if (contentType.match(/x-www-form-urlencoded/) && isPlainObject(data)) {
+        return Object.entries(data)
+            .map(([key, value]) => `${key}=${value}`)
+            .join('&');
     }
     return data;
 }

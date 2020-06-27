@@ -7,6 +7,7 @@ import buildUrl from '../helpers/url';
 import {processHeaders} from '../helpers/header';
 import processMethod from '../helpers/method';
 import {processRequest} from '../helpers/data';
+const _ = require('lodash');
 
 export function transformMethod(config: AxiosRequestConfig): void {
     if (config.method) {
@@ -30,5 +31,5 @@ export function transformHeaders(config: AxiosRequestConfig): void {
 }
 
 export function transformRequest(config: AxiosRequestConfig): void {
-    config.data = processRequest(config.data);
+    config.data = processRequest(config.data, _.get(config, 'headers["Content-Type"]'));
 }

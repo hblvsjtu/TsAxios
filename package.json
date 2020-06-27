@@ -1,6 +1,6 @@
 {
     "name": "tspaxios",
-    "version": "0.0.1",
+    "version": "0.0.7",
     "description": "axios with typeScript",
     "keywords": [
         "axios",
@@ -44,6 +44,8 @@
         "travis-deploy-once": "travis-deploy-once"
     },
     "dependencies": {
+        "@types/lodash": "^4.14.157",
+        "lodash": "^4.17.15",
         "xmlhttprequest": "^1.8.0"
     },
     "devDependencies": {
