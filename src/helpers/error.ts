@@ -3,17 +3,15 @@
  * @author lvhongbin(lvhongbin@baidu.com)
  */
 
-import { WrappedErrorOption } from '../types/index'
-
 type error =
-  | Error
-  | {
-      message?: string
-    }
+    | Error
+    | {
+          message?: string;
+      };
 
 export default function getWrappedError(err: error = {}, option: WrappedErrorOption): object {
-  if (!err.message) {
-    err.message = option.contentText
-  }
-  return Object.assign({}, err, option)
+    if (!err.message) {
+        err.message = option.contentText;
+    }
+    return Object.assign({}, err, option);
 }
